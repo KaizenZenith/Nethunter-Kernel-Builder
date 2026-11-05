@@ -53,7 +53,12 @@ jobs:
         working-directory: ./${{ env.kernelDir }}
         run: |
           git clone --recursive --branch $kernelBranch $kernelRepo $kernelName --depth=1
-
+- name: "Skip absent WireGuard Kconfig"
+  working-directory: ./${{ env.kernelDir }}/${{ env.kernelName }}
+  run: |
+    if [ ! -f net/wireguard/Kconfig ]; then
+      sed -i '\|source "net/wireguard/Kconfig"|d' net/Kconfig
+    fi
       - name: "💫 Get toolchains"
         working-directory: ./${{ env.kernelDir }}
         env:
