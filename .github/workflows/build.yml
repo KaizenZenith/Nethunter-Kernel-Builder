@@ -18,11 +18,11 @@ jobs:
         uses: actions/checkout@v3
 
       - name: "😆 Generate Matrix"
-        id: generate-matrix
-        run: |
-          echo "repos<<EOF" >> $GITHUB_OUTPUT
-          cat  ${{ env.CONFIGURATION }} >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+  id: generate-matrix
+  run: |
+    printf 'repos<<EOF\n' >> "$GITHUB_OUTPUT"
+    cat "${{ env.CONFIGURATION }}" >> "$GITHUB_OUTPUT"
+    printf '\nEOF\n' >> "$GITHUB_OUTPUT"
 
   Build-Kernel:
     name: "🐎 Build kernel"
